@@ -92,3 +92,5 @@ Lista de Apis que se pueden usar
 Callback: es una función que al crearla le pasamos como parametro una segunda f().
 
 Esta es la forma como js ha implementado el asincronismo en su lenguaje 
+
+Podemos crear un script en nuestro json para crear un comando en terminal que nos ejecute el callback
