@@ -94,3 +94,78 @@ Callback: es una función que al crearla le pasamos como parametro una segunda f
 Esta es la forma como js ha implementado el asincronismo en su lenguaje 
 
 Podemos crear un script en nuestro json para crear un comando en terminal que nos ejecute el callback
+
+#### Peticiones a APIS usando Callbacks
+
+ >Clase 5
+
+Los estados de un request de acuerdo a la documentacion:
+    0: request not initialized
+    1: server connection established
+    2: request received
+    3: processing request
+    4: request finished and response is ready
+
+Instalamos dependencias_ 
+
+`npm install xmlhttprequest --save`
+
+
+``` js
+let XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+
+function fetchData(url_api, callback) {
+    let xhttp = new XMLHttpRequest();
+    xhttp.open('GET', url_api, true);
+    xhttp.onreadystatechange = function () {
+        if(xhttp.readyState === 4) {
+            if(xhttp.status === 200) {
+                callback(null, JSON.parse(xhttp.responseText))
+            } else {
+                const error = new Error('Error ' + url_api);
+                return callback(error, null)
+            }
+        }
+    }
+
+    xhttp.send();
+}
+```
+
+#### Múltiples peticiones a un API con callbacks
+
+ >Clase 6
+
+Esta es la forma en la que podemos encadenar llamadas de forma asincrona con callbacks
+Los callbacks hell son una mala práctica aunque funcional.
+
+ ``` js
+// primero buscamos la lista de personajes
+fetchData(API, function(error1, data1) {
+    // si error, matamos retornando un error
+    if(error1) return console.error(error1)
+    // luego buscamos en la api el id de Rick
+    fetchData(API + data1.results[0].id, function (error2, data2) {
+        // si error, matamos retornando un error
+        if(error2) return console.error(error2);
+        // por ultimo la consulta a la api que contiene su dimension
+        fetchData(data2.origin.url, function (error3, data3) {
+            // si error, matamos retornando un error
+            if (error3) return console.log.error(error3);
+
+            // mostramos los resultados :) 
+            console.log(data1.info.count);
+            console.log(data2.name);
+            console.log(data3.dimension);
+
+            // rutas de las peticiones en orden
+            /* console.log(api);
+            console.log(api + data1.results[0].id); 
+            console.log(data2.origin.url);  */
+        });
+    })
+})
+```
+
+
+
