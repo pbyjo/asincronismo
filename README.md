@@ -247,6 +247,49 @@ const fetchData = (url_api) => {
 
  >Clase 9
 
+Async/await no es mas que Syntax Sugar. Es una manera de hacer lo mismo que estabamos haciendo con .then() La clave es recordar que si una función regresa un promesa, podemos usar el keyword await, que le indicia al navagador: “Espera a que la promesa se resuleva y almacena su resultado en esta variable”. Todo esto toma lugar dentro de una función asincrona, asi que usamos async para lograr esto.
+
+``` js
+const anotherFunction = async () => {
+    try {
+        const something = await doSomethingAsync();
+        console.log(something);
+    } catch (error) {
+        console.error(error)
+    }
+}
+```
+
+`src/async/index.js`
+
+#### Resolver problema con Async/Await
+
+ >Clase 10
+
+``` js
+    const fetchData = require('../utilities/fetchData');
+    const API = 'https://rickandmortyapi.com/api/character/';
+
+    const anotherFunction = async (url_api) => {
+    try {
+        const data = await fetchData(url_api);
+        const character = await fetchData(`${API}${data.results[0].id}`);
+        const origin = await fetchData(character.origin.url);
+
+        console.log(data.info.count);
+        console.log(character.name);
+        console.log(origin.dimension);
+
+    }   catch (error) {
+        console.error (error);
+    }
+    }
+
+    console.log('Before');
+    anotherFunction(API);
+    console.log('After');
+```
+
 
 
 
