@@ -223,5 +223,31 @@ Estas utilizan el objeto `promise` para ser ejecutadas. Su concepto es 'algo va 
         })
 ```
 
+#### Resolver problema con promesas
+
+ >Clase 8
+
+``` js 
+let XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+
+
+// funcion principal
+const fetchData = (url_api) => {
+
+    return new Promise ((resolve, reject) => {
+        
+    })
+
+}
+```
+
+`src/promesas/challenge.js`
+
+#### Conociendo Async/await
+
+ >Clase 9
+
+
+
 
 
